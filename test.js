@@ -1,5 +1,5 @@
 
-    const STORAGE_KEY = 'verslag_intervention_dc_valves_v2';
+    const STORAGE_KEY = 'rapport_intervention_dc_valves_v2';
     const EXPORT_STATUS_KEY = STORAGE_KEY + '_export_status_v1';
     const COMMON_EXCEL_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxc-NURqj3X4CAdln4ICuocz2gOj8KS1sVOI4UDkiznSwWSPPbd5vxKlR4uipUqrPDz/exec'; // URL Web App Google Apps Script pour alimenter le fichier commun
     let photoCount = 0;
@@ -17,25 +17,25 @@
     }
 
     function collectData() {
-      const data = { fields:{}, foto's:[], mainFoto:'', signatures:{} };
+      const data = { fields:{}, photos:[], mainPhoto:'', signatures:{} };
 
       qsa('[data-field]').forEach(el => {
         const key = el.dataset.field;
         data.fields[key] = el.type === 'checkbox' ? el.checked : el.value;
       });
 
-      const mainFotoImg = qs('#mainFotoBox img');
-      data.mainFoto = mainFotoImg ? mainFotoImg.src : '';
+      const mainPhotoImg = qs('#mainPhotoBox img');
+      data.mainPhoto = mainPhotoImg ? mainPhotoImg.src : '';
 
       qsa('.photo-card').forEach(card => {
         const captionInput = qs('[data-caption]', card);
-        data.foto's.push({
+        data.photos.push({
           image: card.dataset.image || '',
           caption: captionInput ? captionInput.value : ''
         });
       });
 
-      ['sigTech', 'sigKlant'].forEach(id => {
+      ['sigTech', 'sigClient'].forEach(id => {
         const canvas = document.getElementById(id);
         if (canvas) data.signatures[id] = canvas.toDataURL('image/png');
       });
@@ -71,22 +71,22 @@
         else el.value = data.fields[key] ?? '';
       });
 
-      if (data.mainFoto) setMainFoto(data.mainFoto);
-      else clearMainFoto();
+      if (data.mainPhoto) setMainPhoto(data.mainPhoto);
+      else clearMainPhoto();
 
       const grid = document.getElementById('photoGrid');
       if (grid) {
         grid.innerHTML = '';
         photoCount = 0;
-        const foto's = data.foto's || [];
-        if (foto's.length) foto's.forEach(photo => addFotoCard(photo));
-        else for (let i = 0; i < 6; i++) addFotoCard();
+        const photos = data.photos || [];
+        if (photos.length) photos.forEach(photo => addPhotoCard(photo));
+        else for (let i = 0; i < 6; i++) addPhotoCard();
       }
 
       setTimeout(() => {
-        ['sigTech', 'sigKlant'].forEach(id => {
-          setupHandtekening(id);
-          if (data.signatures && data.signatures[id]) drawHandtekeningImage(id, data.signatures[id]);
+        ['sigTech', 'sigClient'].forEach(id => {
+          setupSignature(id);
+          if (data.signatures && data.signatures[id]) drawSignatureImage(id, data.signatures[id]);
         });
       }, 50);
     }
@@ -142,7 +142,7 @@
       const data = collectData();
       const safeReportNumber = getReportFileBaseName();
       if (!safeReportNumber) {
-        alert('Le numéro de verslag est verplicht avant l’exportation des données.');
+        alert('Le numéro de rapport est obligatoire avant l’exportation des données.');
         return false;
       }
 
@@ -175,7 +175,7 @@
             await navigator.share({
               files:[file],
               title:fileName,
-              text:'Export des données du verslag DC Valves'
+              text:'Export des données du rapport DC Valves'
             });
             return true;
           }
@@ -220,13 +220,13 @@
     }
 
     async function resetReport() {
-      if (!confirm('Créer un nouveau verslag et effacer les champs actuels ?')) return;
+      if (!confirm('Créer un nouveau rapport et effacer les champs actuels ?')) return;
 
       if (!isCurrentReportExported()) {
-        const shouldExport = confirm('Voulez-vous exporter les données avant de créer un nouveau verslag ?');
+        const shouldExport = confirm('Voulez-vous exporter les données avant de créer un nouveau rapport ?');
         if (shouldExport) {
           const exported = await downloadJson();
-          // Si la fenêtre d’exportation est fermée/annulée, on ne fait rien : le verslag reste ouvert.
+          // Si la fenêtre d’exportation est fermée/annulée, on ne fait rien : le rapport reste ouvert.
           if (!exported) return;
         }
       }
@@ -240,22 +240,22 @@
         else el.value = '';
       });
 
-      clearMainFoto();
+      clearMainPhoto();
 
       const grid = document.getElementById('photoGrid');
       if (grid) {
         grid.innerHTML = '';
         photoCount = 0;
-        for (let i = 0; i < 6; i++) addFotoCard();
+        for (let i = 0; i < 6; i++) addPhotoCard();
       }
 
-      clearHandtekening('sigTech');
-      clearHandtekening('sigKlant');
+      clearSignature('sigTech');
+      clearSignature('sigClient');
 
       const lock = document.getElementById('photoHeaderLock');
       if (lock) lock.checked = true;
-      setFotoHeaderLockState();
-      syncFotoHeader();
+      setPhotoHeaderLockState();
+      syncPhotoHeader();
 
       const dateField = qs('[data-field="reportDate"]');
       if (dateField) dateField.value = new Date().toISOString().slice(0, 10);
@@ -278,13 +278,13 @@
 
       const safeTitle = getReportFileBaseName();
       if (!safeTitle) {
-        alert('Le numéro de verslag est verplicht avant l’exportation PDF / impression.');
+        alert('Le numéro de rapport est obligatoire avant l’exportation PDF / impression.');
         isPrinting = false;
         return;
       }
 
       // Le titre du document sert de nom proposé par Safari/Chrome lors de l'enregistrement PDF.
-      // On le conserve au numéro du verslag pour fiabiliser le nom du PDF exporté/imprimé.
+      // On le conserve au numéro du rapport pour fiabiliser le nom du PDF exporté/imprimé.
       document.title = safeTitle;
       saveLocal();
 
@@ -295,7 +295,7 @@
 
       document.body.classList.add('print-mode');
 
-      // Appel direct verplicht sur iPad/Safari : un setTimeout peut casser l'action utilisateur.
+      // Appel direct obligatoire sur iPad/Safari : un setTimeout peut casser l'action utilisateur.
       try {
         window.print();
       } catch (error) {
@@ -327,7 +327,7 @@
       }, 300);
     });
 
-    function addFotoCard(photo = {}) {
+    function addPhotoCard(photo = {}) {
       photoCount++;
       const grid = document.getElementById('photoGrid');
       if (!grid) return;
@@ -336,9 +336,9 @@
       card.className = 'photo-card';
       card.dataset.image = photo.image || '';
       card.innerHTML = `
-        <div class="photo-box">${photo.image ? `<img src="${photo.image}" alt="Foto ${photoCount}">` : '<span class="small">Geen photo</span>'}</div>
+        <div class="photo-box">${photo.image ? `<img src="${photo.image}" alt="Photo ${photoCount}">` : '<span class="small">Aucune photo</span>'}</div>
         <div class="photo-caption">
-          <b>Foto ${photoCount} :</b><span>Légende :</span>
+          <b>Photo ${photoCount} :</b><span>Légende :</span>
           <input data-caption placeholder="" value="${escapeHtml(photo.caption || '')}">
         </div>
         <div class="photo-actions no-print photo-source-actions">
@@ -346,7 +346,7 @@
           <input type="file" accept="image/*" class="album-input" hidden>
           <button type="button" class="camera-btn">Prendre une photo</button>
           <input type="file" accept="image/*" capture="environment" class="camera-input" hidden>
-          <button type="button" class="delete-btn">Verwijderen</button>
+          <button type="button" class="delete-btn">Supprimer</button>
         </div>`;
 
       const captionInput = qs('[data-caption]', card);
@@ -363,11 +363,11 @@
 
       albumBtn.addEventListener('click', () => albumInput.click());
       cameraBtn.addEventListener('click', () => cameraInput.click());
-      albumInput.addEventListener('change', e => loadFoto(e, card));
-      cameraInput.addEventListener('change', e => loadFoto(e, card));
+      albumInput.addEventListener('change', e => loadPhoto(e, card));
+      cameraInput.addEventListener('change', e => loadPhoto(e, card));
       deleteBtn.addEventListener('click', () => {
         card.remove();
-        renumberFotos();
+        renumberPhotos();
         markCurrentReportDirty();
         saveLocal();
       });
@@ -375,14 +375,14 @@
       grid.appendChild(card);
     }
 
-    function loadFoto(event, card) {
+    function loadPhoto(event, card) {
       const file = event.target.files[0];
       if (!file) return;
 
       const reader = new FileReader();
       reader.onload = () => {
         card.dataset.image = reader.result;
-        qs('.photo-box', card).innerHTML = `<img src="${reader.result}" alt="Foto ajoutée">`;
+        qs('.photo-box', card).innerHTML = `<img src="${reader.result}" alt="Photo ajoutée">`;
         markCurrentReportDirty();
         saveLocal();
       };
@@ -390,36 +390,36 @@
       event.target.value = '';
     }
 
-    function loadMainFoto(event) {
+    function loadMainPhoto(event) {
       const file = event.target.files[0];
       if (!file) return;
 
       const reader = new FileReader();
-      reader.onload = () => setMainFoto(reader.result);
+      reader.onload = () => setMainPhoto(reader.result);
       reader.readAsDataURL(file);
       event.target.value = '';
     }
 
-    function setMainFoto(src) {
-      const box = document.getElementById('mainFotoBox');
+    function setMainPhoto(src) {
+      const box = document.getElementById('mainPhotoBox');
       if (!box) return;
-      box.innerHTML = `<img src="${src}" alt="Foto principale">`;
+      box.innerHTML = `<img src="${src}" alt="Photo principale">`;
       markCurrentReportDirty();
       saveLocal();
     }
 
-    function clearMainFoto() {
-      const box = document.getElementById('mainFotoBox');
+    function clearMainPhoto() {
+      const box = document.getElementById('mainPhotoBox');
       if (!box) return;
-      box.innerHTML = '<span class="small">Geen photo principale</span>';
+      box.innerHTML = '<span class="small">Aucune photo principale</span>';
       markCurrentReportDirty();
       saveLocal();
     }
 
-    function renumberFotos() {
+    function renumberPhotos() {
       qsa('.photo-card').forEach((card, idx) => {
         const label = qs('.photo-caption b', card);
-        if (label) label.textContent = `Foto ${idx + 1} :`;
+        if (label) label.textContent = `Photo ${idx + 1} :`;
       });
       photoCount = qsa('.photo-card').length;
     }
@@ -462,14 +462,14 @@
       if (totalField) totalField.value = `${h}:${String(m).padStart(2, '0')}`;
     }
 
-    function setupHandtekening(id) {
+    function setupSignature(id) {
       const canvas = document.getElementById(id);
       if (!canvas) return;
 
       const ctx = canvas.getContext('2d');
       const oldImage = canvas.width && canvas.height ? canvas.toDataURL('image/png') : null;
       const ratio = Math.max(window.devicePixelRatio || 1, 1);
-      const rect = canvas.getBoundingKlantRect();
+      const rect = canvas.getBoundingClientRect();
 
       canvas.width = Math.max(rect.width * ratio, 1);
       canvas.height = Math.max(rect.height * ratio, 1);
@@ -478,13 +478,13 @@
       ctx.lineCap = 'round';
       ctx.strokeStyle = '#111';
 
-      if (oldImage) drawHandtekeningImage(id, oldImage);
+      if (oldImage) drawSignatureImage(id, oldImage);
 
       let drawing = false;
       let last = null;
 
       function pos(e) {
-        const r = canvas.getBoundingKlantRect();
+        const r = canvas.getBoundingClientRect();
         const p = e.touches ? e.touches[0] : e;
         return { x:p.clientX - r.left, y:p.clientY - r.top };
       }
@@ -520,14 +520,14 @@
       canvas.ontouchend = end;
     }
 
-    function clearHandtekening(id) {
+    function clearSignature(id) {
       const canvas = document.getElementById(id);
       if (!canvas) return;
       canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
       markCurrentReportDirty();
     }
 
-    function drawHandtekeningImage(id, src) {
+    function drawSignatureImage(id, src) {
       const canvas = document.getElementById(id);
       if (!canvas || !src) return;
 
@@ -624,7 +624,7 @@
       } catch (error) {
         console.warn('Enregistrement dans Google Sheets impossible :', error);
         queueCommonExcelPayload(payload);
-        alert('Le verslag a été traité, mais l’enregistrement automatique dans Google Sheets n’a pas pu être envoyé maintenant. Il sera réessayé au prochain export avec une connexion internet.');
+        alert('Le rapport a été traité, mais l’enregistrement automatique dans Google Sheets n’a pas pu être envoyé maintenant. Il sera réessayé au prochain export avec une connexion internet.');
         return false;
       }
     }
@@ -711,7 +711,7 @@
       const number = generateReportNumber();
       if (!number) {
         if (!silent) {
-          alert('Remplis d’abord le client et le technicien pour générer le numéro de verslag.');
+          alert('Remplis d’abord le client et le technicien pour générer le numéro de rapport.');
           focusFirstMissingReportField();
         }
         return false;
@@ -724,13 +724,13 @@
       const field = qs('[data-field="reportNumber"]');
       if (!field) return false;
 
-      // Le numéro est verrouillé : il doit toujours refléter les champs Klant + Technieker.
+      // Le numéro est verrouillé : il doit toujours refléter les champs Client + Technicien.
       // On le régénère donc dès que ces champs sont disponibles, même s’il existe déjà.
       const updated = updateAutomaticReportNumber(true);
       if (updated) return true;
 
       if (!silent) {
-        alert('Remplis d’abord le client et le technicien pour générer le numéro de verslag.');
+        alert('Remplis d’abord le client et le technicien pour générer le numéro de rapport.');
         focusFirstMissingReportField();
       }
       return false;
@@ -745,8 +745,8 @@
         const el = qs(`[data-field="${key}"]`);
         if (!el) return;
 
-        // Génération automatique silencieuse dès que Klant + Technieker sont remplis.
-        // Geen pop-up pendant la saisie.
+        // Génération automatique silencieuse dès que Client + Technicien sont remplis.
+        // Aucune pop-up pendant la saisie.
         el.addEventListener('input', () => updateAutomaticReportNumber(true));
         el.addEventListener('change', () => updateAutomaticReportNumber(true));
         el.addEventListener('blur', () => updateAutomaticReportNumber(true));
@@ -762,23 +762,23 @@
       pValveType:'valveType'
     };
 
-    function getFotoHeaderLock() {
+    function getPhotoHeaderLock() {
       const lock = document.getElementById('photoHeaderLock');
       return !lock || lock.checked;
     }
 
-    function setFotoHeaderLockState() {
-      const locked = getFotoHeaderLock();
+    function setPhotoHeaderLockState() {
+      const locked = getPhotoHeaderLock();
       qsa(Object.keys(PHOTO_HEADER_MAP).map(key => `[data-field="${key}"]`).join(',')).forEach(el => {
         el.readOnly = locked;
-        el.title = locked ? 'Champ verrouillé : valeur synchronisée depuis le verslag d’inspection.' : 'Champ déverrouillé : modification manuelle possible.';
+        el.title = locked ? 'Champ verrouillé : valeur synchronisée depuis le rapport d’inspection.' : 'Champ déverrouillé : modification manuelle possible.';
       });
 
       const state = document.getElementById('photoHeaderSyncState');
       if (state) {
         state.textContent = locked
-          ? 'Champs foto's verrouillés : copie automatique depuis la première page.'
-          : 'Champs foto's déverrouillés : modification manuelle possible, avec synchronisation bidirectionnelle.';
+          ? 'Champs photos verrouillés : copie automatique depuis la première page.'
+          : 'Champs photos déverrouillés : modification manuelle possible, avec synchronisation bidirectionnelle.';
       }
     }
 
@@ -789,8 +789,8 @@
       if (target.value !== source.value) target.value = source.value;
     }
 
-    function syncFotoHeader(changedField = '') {
-      const locked = getFotoHeaderLock();
+    function syncPhotoHeader(changedField = '') {
+      const locked = getPhotoHeaderLock();
 
       Object.entries(PHOTO_HEADER_MAP).forEach(([photoKey, inspectionKey]) => {
         if (locked) {
@@ -805,7 +805,7 @@
         }
       });
 
-      setFotoHeaderLockState();
+      setPhotoHeaderLockState();
       saveLocal();
     }
 
@@ -817,15 +817,15 @@
         const el = qs(`[data-field="${key}"]`);
         if (!el) return;
         ['input', 'change'].forEach(eventName => {
-          el.addEventListener(eventName, () => syncFotoHeader(key));
+          el.addEventListener(eventName, () => syncPhotoHeader(key));
         });
       });
 
       const lock = document.getElementById('photoHeaderLock');
       if (lock) {
         lock.addEventListener('change', () => {
-          setFotoHeaderLockState();
-          if (lock.checked) syncFotoHeader();
+          setPhotoHeaderLockState();
+          if (lock.checked) syncPhotoHeader();
           saveLocal();
         });
       }
@@ -834,11 +834,11 @@
     function init() {
       const grid = document.getElementById('photoGrid');
       if (grid && qsa('.photo-card').length === 0) {
-        for (let i = 0; i < 6; i++) addFotoCard();
+        for (let i = 0; i < 6; i++) addPhotoCard();
       }
 
-      setupHandtekening('sigTech');
-      setupHandtekening('sigKlant');
+      setupSignature('sigTech');
+      setupSignature('sigClient');
 
       const dateField = qs('[data-field="reportDate"]');
       if (dateField && !dateField.value) {
@@ -863,8 +863,8 @@
       loadLocal();
       ensureReportNumber(false, true);
       loadCurrentReportExportStatus();
-      setFotoHeaderLockState();
-      syncFotoHeader();
+      setPhotoHeaderLockState();
+      syncPhotoHeader();
     }
 
     if ('serviceWorker' in navigator) {
@@ -881,8 +881,8 @@
       if (isPrinting) return;
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        setupHandtekening('sigTech');
-        setupHandtekening('sigKlant');
+        setupSignature('sigTech');
+        setupSignature('sigClient');
         saveLocal();
       }, 500);
     });
