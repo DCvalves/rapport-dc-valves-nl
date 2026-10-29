@@ -83,8 +83,8 @@
       font-weight:600;
       font-size:14px;
       line-height:1.2;
-      appearance:none;
-      -webkit-appearance:none;
+      appearance:neee;
+      -webkit-appearance:neee;
     }
 
     button.danger {
@@ -171,7 +171,7 @@
     input:not([type]) {
       width:100%;
       border:0;
-      outline:none;
+      outline:neee;
       font:inherit;
       background:transparent;
       padding:2px;
@@ -439,8 +439,8 @@
     #timeTable input[type="date"] {
       text-align:center !important;
       text-align-last:center !important;
-      -webkit-appearance:none;
-      appearance:none;
+      -webkit-appearance:neee;
+      appearance:neee;
       display:block;
       margin:0 auto;
       padding-left:0 !important;
@@ -472,7 +472,7 @@
       height:130px;
       border:1px solid var(--border);
       background:#fff;
-      touch-action:none;
+      touch-action:neee;
       width:100%;
       display:block;
     }
@@ -555,11 +555,11 @@
       .no-print,
       .foto-actions,
       .handtekening-actions {
-        display:none !important;
+        display:neee !important;
       }
 
       main {
-        max-width:none;
+        max-width:neee;
         width:100%;
         margin:0;
         padding:0;
@@ -567,7 +567,7 @@
 
       .page {
         width:auto;
-        box-shadow:none;
+        box-shadow:neee;
         border:0;
         margin:0;
         padding:5mm;
@@ -614,7 +614,7 @@
 
       textarea {
         min-height:42px;
-        resize:none;
+        resize:neee;
         overflow:hidden;
       }
 
@@ -959,7 +959,7 @@
     .print-mode .no-print,
     .print-mode button,
     .print-mode .toolbar {
-      display:none !important;
+      display:neee !important;
     }
 
     /* v38 : numéro verslag sans heure + marque/série verplichts */
@@ -993,8 +993,8 @@
     }
 
     .locked-field:focus {
-      outline:none !important;
-      box-shadow:none !important;
+      outline:neee !important;
+      box-shadow:neee !important;
     }
 
   </style>
@@ -1003,9 +1003,9 @@
   <header>
     <h1>Interventieverslag - DC Valves</h1>
     <div class="toolbar">
-      <button class="primary" onclick="printReport()">Exporteren en PDF / Afdrukken</button>
-      <button class="secondary" onclick="downloadJson()">Exporteren les données</button>
-      <label class="file-label secondary no-print">Importeren les données <input id="importJson" type="file" accept="application/json" hidden onchange="importJson(event)"></label>
+      <button class="primary" onclick="printReport()">Exporterenen en PDF / Afdrukken</button>
+      <button class="secondary" onclick="downloadJson()">Exporterenen les données</button>
+      <label class="file-label secondary no-print">Importerenen les données <input id="importJson" type="file" accept="application/json" hidden onchange="importJson(event)"></label>
       <button class="danger" onclick="resetReport()">Nouveau verslag</button>
     </div>
   </header>
@@ -1035,12 +1035,12 @@
             <textarea data-field="mainFotoNote" placeholder="Note/foto principale"></textarea>
           </div>
         </td></tr>
-        <tr><td class="label">Référence interne</td><td><input data-field="internalRef"></td></tr>
-        <tr><td class="label">Merk de la afsluiter</td><td><input data-field="valveBrand" value="" placeholder="Merk requise"></td></tr>
-        <tr><td class="label">Serienummer</td><td><input data-field="serialNumber" value="" placeholder="N° série requis"></td></tr>
-        <tr><td class="label">Repère / Tag</td><td><input data-field="tagNo"></td></tr>
-        <tr><td class="label">Installation</td><td><input data-field="plant"></td></tr>
-        <tr><td class="label">Type de afsluiter</td><td><input data-field="valveType"></td></tr>
+        <tr><td class="label">Interne referentie</td><td><input data-field="internalRef"></td></tr>
+        <tr><td class="label">Merk van de afsluiter</td><td><input data-field="valveBrand" value="" placeholder="Merk requise"></td></tr>
+        <tr><td class="label">Serienummer</td><td><input data-field="serialNumber" value="" placeholder="Serienummer verplicht"></td></tr>
+        <tr><td class="label">Markering / tag</td><td><input data-field="tagNo"></td></tr>
+        <tr><td class="label">Installatie</td><td><input data-field="plant"></td></tr>
+        <tr><td class="label">Type afsluiter</td><td><input data-field="valveType"></td></tr>
         <tr><td class="label">DN</td><td><input data-field="dn"></td></tr>
         <tr><td class="label">PN</td><td><input data-field="pn"></td></tr>
         <tr><td class="label">CV/KV</td><td><input data-field="cvKv"></td></tr>
@@ -1048,30 +1048,30 @@
           <label class="check"><input type="checkbox" data-field="connectionFlanges">Brides</label>
           <label class="check"><input type="checkbox" data-field="connectionWafer">Wafer</label>
           <label class="check"><input type="checkbox" data-field="connectionBw">BW</label>
-          <label class="check"><input type="checkbox" data-field="connectionThreaded">Taraudé</label>
+          <label class="check"><input type="checkbox" data-field="connectionThreaded">Met schroefdraad</label>
         </div></td></tr>
         <tr><td class="label">Orientation</td><td><div class="checks"><label class="check"><input type="checkbox" data-field="orientationVertical">verticale</label><label class="check"><input type="checkbox" data-field="orientationHorizontal">horizontale</label></div></td></tr>
         <tr><td class="label">Type</td><td colspan="2">
           <div class="type-choice-grid">
             <div class="type-left">
               <label class="check"><input type="checkbox" data-field="typeGlobeValve">Robinet soupape</label>
-              <label class="check"><input type="checkbox" data-field="typeBallValve">Afsluiter à boule</label>
+              <label class="check"><input type="checkbox" data-field="typeBallValve">Kogelafsluiter</label>
               <label class="check"><input type="checkbox" data-field="typeButterflyValve">Afsluiter papillon</label>
               <div class="type-subchoices">
-                <label class="check"><input type="checkbox" data-field="typeButterflySimple">à manchette</label>
+                <label class="check"><input type="checkbox" data-field="typeButterflySimple">Met manchet</label>
                 <label class="check"><input type="checkbox" data-field="typeButterflyDouble">double excentrique</label>
                 <label class="check"><input type="checkbox" data-field="typeButterflyTriple">triple excentrique</label>
               </div>
               <div class="type-other-row">
                 <label class="type-other-label"><input type="checkbox" data-field="typeOther"><span>Andere</span></label>
-                <input data-field="typeOtherText" placeholder="Préciser autre type">
+                <input data-field="typeOtherText" placeholder="Ander type specificeren">
               </div>
             </div>
             <div class="type-right">
               <label class="check"><input type="checkbox" data-field="typeGateValve">Afsluiter gate</label>
               <label class="check"><input type="checkbox" data-field="typeVBallValve">Afsluiter V ball</label>
               <label class="check"><input type="checkbox" data-field="type3WayValve">Afsluiter 3 voies</label>
-              <label class="check"><input type="checkbox" data-field="typeDesuperheater">Désurchauffeur</label>
+              <label class="check"><input type="checkbox" data-field="typeDesuperheater">Ontoververhitter</label>
               <label class="check type-nowrap"><input type="checkbox" data-field="typeSteamConditioningValve">Conditionnement vapeur</label>
             </div>
           </div>
@@ -1104,11 +1104,11 @@
           <td class="label">Actionnement</td>
           <td>
             <div class="checks motor-action-checks">
-              <label class="check"><input type="checkbox" data-field="motorElectric">Électrique</label>
+              <label class="check"><input type="checkbox" data-field="motorElectric">Elektrisch</label>
               <label class="check"><input type="checkbox" data-field="motorPneumatic">Pneumatique</label>
             </div>
           </td>
-          <td class="label">Électroafsluiter</td>
+          <td class="label">Magneetafsluiter</td>
           <td>
             <div class="checks" style="grid-template-columns:1fr 1fr">
               <label class="check"><input type="checkbox" data-field="solenoid24v">24V</label>
@@ -1131,7 +1131,7 @@
           <td class="label">Taille de la membrane</td><td><input data-field="motorMembraneSize"></td>
         </tr>
         <tr>
-          <td class="label">Remarque</td><td colspan="3"><textarea data-field="motorRemarks"></textarea></td>
+          <td class="label">Opmerking</td><td colspan="3"><textarea data-field="motorRemarks"></textarea></td>
         </tr>
       </table>
 
@@ -1158,7 +1158,7 @@
           </td>
         </tr>
         <tr>
-          <td class="label">Réglage</td><td><input data-field="positionerAdjustment"></td>
+          <td class="label">Instelling</td><td><input data-field="positionerAdjustment"></td>
           <td class="label">Druk</td><td><input data-field="positionerPressure"></td>
         </tr>
         <tr>
@@ -1171,26 +1171,26 @@
           </td>
         </tr>
         <tr>
-          <td class="label">Remarque</td><td colspan="3"><textarea data-field="positionerRemarks"></textarea></td>
+          <td class="label">Opmerking</td><td colspan="3"><textarea data-field="positionerRemarks"></textarea></td>
         </tr>
       </table>
 
-      <div class="section-title">Travaux effectués</div>
+      <div class="section-title">Uitgevoerde werkzaamheden</div>
       <table>
         <tr>
           <td style="width:50%">
             <label class="check"><input type="checkbox" data-field="workDisassembly">Demontage</label>
             <label class="check"><input type="checkbox" data-field="workMembrane">Remplacement membrane</label>
             <label class="check"><input type="checkbox" data-field="workSeals">Remplacement dichtingen et O-rings</label>
-            <label class="check"><input type="checkbox" data-field="workLapping">Rodage siège/clapet</label>
+            <label class="check"><input type="checkbox" data-field="workLapping">Inslijpen van zitting/klep</label>
             <label class="check"><input type="checkbox" data-field="workReassembly">Remontage</label>
           </td>
           <td>
             <label class="check"><input type="checkbox" data-field="workPacking">Remplacement bourrage</label>
             <label class="check"><input type="checkbox" data-field="workTest">Test et calibration</label>
             <div style="display:flex; align-items:center; gap:8px">
-              <label class="check"><input type="checkbox" data-field="workOther">Autre</label>
-              <input data-field="workOtherText" placeholder="Préciser autre travail" style="max-width:220px; border:1px solid #ccc; padding:2px 4px;">
+              <label class="check"><input type="checkbox" data-field="workOther">Andere</label>
+              <input data-field="workOtherText" placeholder="Andere werkzaamheden specificeren" style="max-width:220px; border:1px solid #ccc; padding:2px 4px;">
             </div>
           </td>
         </tr>
@@ -1208,7 +1208,7 @@
         <tr>
           <td style="width:48%">
             <label class="check"><input type="checkbox" data-field="sparePartInquiry">Demande de onderdeels de rechange</label>
-            <label class="check"><input type="checkbox" data-field="overhaulDcValves">Révision chez DC Valves</label>
+            <label class="check"><input type="checkbox" data-field="overhaulDcValves">Revisie bij DC Valves</label>
             <label class="check"><input type="checkbox" data-field="valveModification">Modification de la afsluiter</label>
             <label class="check"><input type="checkbox" data-field="visitService">Interventie du service DC Valves</label>
           </td>
@@ -1222,13 +1222,13 @@
     <section class="page">
       <div class="report-head"><div class="report-title">Verslag technieker - Fotos</div><div class="logo"><img src="dc_valves_logo.png" alt="Logo DC Valves"></div></div>
       <div class="sync-bar no-print">
-        <label class="check"><input type="checkbox" id="fotoHeaderLock" data-field="fotoHeaderLock" checked> Verrouiller et synchroniser automatiquement avec le verslag d'inspection</label>
-        <span class="sync-state" id="fotoHeaderSyncState">Champs fotos verrouillés</span>
+        <label class="check"><input type="checkbox" id="fotoHeaderLock" data-field="fotoHeaderLock" checked> Vergrendel en synchroniseer automatisch met het inspectieverslag</label>
+        <span class="sync-state" id="fotoHeaderSyncState">Fotovelden vergrendeld</span>
       </div>
       <table>
-        <tr><td class="label">Merk de la afsluiter</td><td><input class="synced-field" data-field="pValveBrand" placeholder="Synchronisé"></td><td class="label">Serienummer</td><td><input class="synced-field" data-field="pSerialNumber" placeholder="Synchronisé"></td></tr>
-        <tr><td class="label">Repère / Tag</td><td><input class="synced-field" data-field="pTagNo" placeholder="Synchronisé"></td><td class="label">Installation</td><td><input class="synced-field" data-field="pPlant" placeholder="Synchronisé"></td></tr>
-        <tr><td class="label">Référence interne</td><td><input class="synced-field" data-field="pInternalRef" placeholder="Synchronisé"></td><td class="label">Type de afsluiter</td><td><input class="synced-field" data-field="pValveType" placeholder="Synchronisé"></td></tr>
+        <tr><td class="label">Merk van de afsluiter</td><td><input class="synced-field" data-field="pValveBrand" placeholder="Gesynchroniseerd"></td><td class="label">Serienummer</td><td><input class="synced-field" data-field="pSerialNumber" placeholder="Gesynchroniseerd"></td></tr>
+        <tr><td class="label">Markering / tag</td><td><input class="synced-field" data-field="pTagNo" placeholder="Gesynchroniseerd"></td><td class="label">Installatie</td><td><input class="synced-field" data-field="pPlant" placeholder="Gesynchroniseerd"></td></tr>
+        <tr><td class="label">Interne referentie</td><td><input class="synced-field" data-field="pInternalRef" placeholder="Gesynchroniseerd"></td><td class="label">Type afsluiter</td><td><input class="synced-field" data-field="pValveType" placeholder="Gesynchroniseerd"></td></tr>
       </table>
       <div class="foto-grid" id="fotoGrid"></div>
       <div class="no-print" style="margin-top:10px"><button onclick="addFotoCard()">Toevoegen une foto</button></div>
@@ -1239,32 +1239,32 @@
       <table>
         <tr><td class="label">Klant</td><td><input data-field="customer" placeholder="Klant requis"></td><td class="label">Telefoon</td><td><input data-field="companyPhone"></td></tr>
         <tr><td class="label">Rue</td><td><input data-field="street"></td><td class="label">Locatie web</td><td><input data-field="web"></td></tr>
-        <tr><td class="label">Localité</td><td><input data-field="town"></td><td class="label">Contactpersoon DC Valves</td><td><input data-field="dcContactpersoon"></td></tr>
-        <tr><td class="label">Datum</td><td><input type="date" data-field="reportDatum"></td><td class="label">Technieker</td><td><input data-field="technician" placeholder="Technieker requis"></td></tr>
+        <tr><td class="label">Gemeente</td><td><input data-field="town"></td><td class="label">Contactpersoon DC Valves</td><td><input data-field="dcContactpersoon"></td></tr>
+        <tr><td class="label">Datum</td><td><input type="date" data-field="reportDatum"></td><td class="label">Technieker</td><td><input data-field="technician" placeholder="Technieker verplicht"></td></tr>
         <tr><td class="label">N° de commande</td><td colspan="3"><input data-field="orderNo"></td></tr>
-        <tr><td class="label">Défaut constaté ou service demandé</td><td colspan="3"><textarea data-field="desiredService"></textarea></td></tr>
-        <tr><td class="label">Matériel néctestre</td><td colspan="3"><textarea data-field="necessaryMaterial"></textarea></td></tr>
+        <tr><td class="label">Vastgesteld defect of gevraagde dienst</td><td colspan="3"><textarea data-field="desiredService"></textarea></td></tr>
+        <tr><td class="label">Benodigd materiaal</td><td colspan="3"><textarea data-field="necessaryMaterial"></textarea></td></tr>
       </table>
 
       <div class="section-title">Verslag de temps</div>
       <table id="timeTable">
         <tr><th></th><th>Lun</th><th>Mar</th><th>Mer</th><th>Jeu</th><th>Ven</th><th>Sam</th><th>Dim</th></tr>
         <tr><th>Datum</th><td><input type="date" data-field="dMon"></td><td><input type="date" data-field="dTue"></td><td><input type="date" data-field="dWed"></td><td><input type="date" data-field="dThu"></td><td><input type="date" data-field="dFri"></td><td><input type="date" data-field="dSat"></td><td><input type="date" data-field="dSun"></td></tr>
-        <tr><th>Début trajet aller</th><td><input type="time" data-field="asMon"></td><td><input type="time" data-field="asTue"></td><td><input type="time" data-field="asWed"></td><td><input type="time" data-field="asThu"></td><td><input type="time" data-field="asFri"></td><td><input type="time" data-field="asSat"></td><td><input type="time" data-field="asSun"></td></tr>
+        <tr><th>Vertrek heenrit</th><td><input type="time" data-field="asMon"></td><td><input type="time" data-field="asTue"></td><td><input type="time" data-field="asWed"></td><td><input type="time" data-field="asThu"></td><td><input type="time" data-field="asFri"></td><td><input type="time" data-field="asSat"></td><td><input type="time" data-field="asSun"></td></tr>
         <tr><th>Fin trajet aller</th><td><input type="time" data-field="aeMon"></td><td><input type="time" data-field="aeTue"></td><td><input type="time" data-field="aeWed"></td><td><input type="time" data-field="aeThu"></td><td><input type="time" data-field="aeFri"></td><td><input type="time" data-field="aeSat"></td><td><input type="time" data-field="aeSun"></td></tr>
-        <tr><th>Début travail</th><td><input type="time" data-field="wsMon"></td><td><input type="time" data-field="wsTue"></td><td><input type="time" data-field="wsWed"></td><td><input type="time" data-field="wsThu"></td><td><input type="time" data-field="wsFri"></td><td><input type="time" data-field="wsSat"></td><td><input type="time" data-field="wsSun"></td></tr>
+        <tr><th>Start werkzaamheden</th><td><input type="time" data-field="wsMon"></td><td><input type="time" data-field="wsTue"></td><td><input type="time" data-field="wsWed"></td><td><input type="time" data-field="wsThu"></td><td><input type="time" data-field="wsFri"></td><td><input type="time" data-field="wsSat"></td><td><input type="time" data-field="wsSun"></td></tr>
         <tr><th>Fin travail</th><td><input type="time" data-field="weMon"></td><td><input type="time" data-field="weTue"></td><td><input type="time" data-field="weWed"></td><td><input type="time" data-field="weThu"></td><td><input type="time" data-field="weFri"></td><td><input type="time" data-field="weSat"></td><td><input type="time" data-field="weSun"></td></tr>
-        <tr><th>Début trajet retour</th><td><input type="time" data-field="dsMon"></td><td><input type="time" data-field="dsTue"></td><td><input type="time" data-field="dsWed"></td><td><input type="time" data-field="dsThu"></td><td><input type="time" data-field="dsFri"></td><td><input type="time" data-field="dsSat"></td><td><input type="time" data-field="dsSun"></td></tr>
+        <tr><th>Vertrek terugrit</th><td><input type="time" data-field="dsMon"></td><td><input type="time" data-field="dsTue"></td><td><input type="time" data-field="dsWed"></td><td><input type="time" data-field="dsThu"></td><td><input type="time" data-field="dsFri"></td><td><input type="time" data-field="dsSat"></td><td><input type="time" data-field="dsSun"></td></tr>
         <tr><th>Fin trajet retour</th><td><input type="time" data-field="deMon"></td><td><input type="time" data-field="deTue"></td><td><input type="time" data-field="deWed"></td><td><input type="time" data-field="deThu"></td><td><input type="time" data-field="deFri"></td><td><input type="time" data-field="deSat"></td><td><input type="time" data-field="deSun"></td></tr>
       </table>
       <div class="no-print" style="margin:8px 0"><button onclick="calculateHours()">Calculer les heures</button></div>
       <table>
-        <tr><td class="label">Total des heures calculé</td><td><input data-field="totalHours" readonly></td><td class="label">Kilométrage total</td><td><input type="number" data-field="totalKm"></td></tr>
+        <tr><td class="label">Berekend totaal aantal uren</td><td><input data-field="totalHours" readonly></td><td class="label">Totaal aantal kilometers</td><td><input type="number" data-field="totalKm"></td></tr>
         <tr><td class="label">Trajet aller de</td><td><input data-field="arrivalFrom"></td><td class="label">Trajet aller vers</td><td><input data-field="arrivalTo"></td></tr>
         <tr><td class="label">Trajet retour de</td><td><input data-field="departureFrom"></td><td class="label">Trajet retour vers</td><td><input data-field="departureTo"></td></tr>
-        <tr><td class="label">Frais / consommation de matériel</td><td colspan="3"><textarea data-field="expenditures"></textarea></td></tr>
-        <tr><td class="label">Frais spéciaux</td><td colspan="3"><textarea data-field="specialExpenditures"></textarea></td></tr>
-        <tr><td class="label">Remontage voltooid</td><td colspan="3"><label class="check"><input type="checkbox" data-field="assemblyCompleted">oui</label><label class="check"><input type="checkbox" data-field="assemblyNotCompleted">non</label></td></tr>
+        <tr><td class="label">Kosten / materiaalverbruik</td><td colspan="3"><textarea data-field="expenditures"></textarea></td></tr>
+        <tr><td class="label">Speciale kosten</td><td colspan="3"><textarea data-field="specialExpenditures"></textarea></td></tr>
+        <tr><td class="label">Hermontage voltooid</td><td colspan="3"><label class="check"><input type="checkbox" data-field="assemblyCompleted">ja</label><label class="check"><input type="checkbox" data-field="assemblyNotCompleted">nee</label></td></tr>
       </table>
       <div class="two-cols" style="margin-top:10px">
         <div><b>Handtekening du technieker</b><canvas class="handtekening-box" id="sigTech"></canvas><div class="handtekening-actions no-print"><button onclick="clearHandtekening('sigTech')">Wissen</button></div></div>
@@ -1488,7 +1488,7 @@
       const data = collectData();
       const safeReportNumber = getReportFileBaseName();
       if (!safeReportNumber) {
-        alert('Le numéro de verslag est verplicht avant l’exportation des données.');
+        alert('Het verslagnummer is verplicht voordat u gegevens exporteert.');
         return false;
       }
 
@@ -1561,7 +1561,7 @@
         try {
           applyData(JSON.parse(reader.result));
         } catch (error) {
-          alert('Le fichier importé n’est pas un JSON valide.');
+          alert('Het geïmporteerde bestand is geen geldige JSON.');
         }
       };
       reader.readAsText(file);
@@ -1569,10 +1569,10 @@
     }
 
     async function resetReport() {
-      if (!confirm('Créer un nouveau verslag et wissen les champs actuels ?')) return;
+      if (!confirm('Een nieuw verslag maken en de huidige velden wissen?')) return;
 
       if (!isCurrentReportExported()) {
-        const shouldExport = confirm('Voulez-vous exporteren les données avant de créer un nouveau verslag ?');
+        const shouldExport = confirm('Wilt u de gegevens exporteren voordat u een nieuw verslag maakt?');
         if (shouldExport) {
           const exported = await downloadJson();
           // Si la fenêtre d’exportation est fermée/annulée, on ne fait rien : le verslag reste ouvert.
@@ -1630,7 +1630,7 @@
 
       const safeTitle = getReportFileBaseName();
       if (!safeTitle) {
-        alert('Le numéro de verslag est verplicht avant l’exportation PDF / impression.');
+        alert('Het verslagnummer is verplicht voordat u een PDF exporteert of afdrukt.');
         isPrinting = false;
         return;
       }
@@ -1651,7 +1651,7 @@
         console.error('Impression impossible :', error);
         document.body.classList.remove('print-mode');
         isPrinting = false;
-        alert('La fenêtre d’impression n’a pas pu s’ouvrir. Réteste depuis Safari ou réinstalle l’app depuis l’écran d’accueil.');
+        alert('Het afdrukvenster kon niet worden geopend. Probeer opnieuw via Safari of installeer de app opnieuw vanaf het startscherm.');
       }
 
       setTimeout(() => {
@@ -1664,7 +1664,7 @@
       if (!pendingPdfExportConfirmation) return;
       pendingPdfExportConfirmation = false;
       setTimeout(() => {
-        const ok = confirm('Le PDF a-t-il bien été exporté ou imprimé ?');
+        const ok = confirm('Is de PDF correct geëxporteerd of afgedrukt?');
         if (ok) {
           markCurrentReportPdfExported();
           saveLocal();
@@ -1707,7 +1707,7 @@
       card.innerHTML = `
         <div class="foto-box">${foto.image ? `<img src="${foto.image}" alt="Foto ${fotoCount}">` : '<span class="small">Geen foto</span>'}</div>
         <div class="foto-caption">
-          <b>Foto ${fotoCount} :</b><span>Légende :</span>
+          <b>Foto ${fotoCount} :</b><span>Bijschrift:</span>
           <input data-caption placeholder="" value="${escapeHtml(foto.caption || '')}">
         </div>
         <div class="foto-actions no-print foto-source-actions">
@@ -1996,7 +1996,7 @@
       } catch (error) {
         console.warn('Enregistrement dans Google Sheets impossible :', error);
         queueCommonExcelPayload(payload);
-        alert('Le verslag a été traité, mais l’enregistrement automatique dans Google Sheets n’a pas pu être envoyé maintenant. Il sera réessayé au prochain export avec une connexion internet.');
+        alert('Het verslag is verwerkt, maar kon nu niet automatisch naar Google Sheets worden verzonden. Dit wordt opnieuw geprobeerd bij de volgende export met een internetverbinding.');
         return false;
       }
     }
@@ -2082,7 +2082,7 @@
       const number = generateReportNumber();
       if (!number) {
         if (!silent) {
-          alert('Remplis d’abord le technieker, le klant, la marque de la afsluiter et le numéro de série pour générer le numéro de verslag.');
+          alert('Vul eerst de technieker, klant, het merk van de afsluiter en het serienummer in om het verslagnummer aan te maken.');
           focusFirstMissingReportField();
         }
         return false;
@@ -2095,13 +2095,13 @@
       const field = qs('[data-field="reportNumber"]');
       if (!field) return false;
 
-      // Le numéro est verrouillé : il doit toujours refléter les champs Klant + Technieker.
+      // Le numéro est verrjallé : il doit toujours refléter les champs Klant + Technieker.
       // On le régénère donc dès que ces champs sont disponibles, même s’il existe déjà.
       const updated = updateAutomaticReportNumber(true);
       if (updated) return true;
 
       if (!silent) {
-        alert('Remplis d’abord le technieker, le klant, la marque de la afsluiter et le numéro de série pour générer le numéro de verslag.');
+        alert('Vul eerst de technieker, klant, het merk van de afsluiter en het serienummer in om het verslagnummer aan te maken.');
         focusFirstMissingReportField();
       }
       return false;
@@ -2142,14 +2142,14 @@
       const locked = getFotoHeaderLock();
       qsa(Object.keys(PHOTO_HEADER_MAP).map(key => `[data-field="${key}"]`).join(',')).forEach(el => {
         el.readOnly = locked;
-        el.title = locked ? 'Champ verrouillé : valeur synchronisée depuis le verslag d’inspection.' : 'Champ déverrouillé : modification manuelle possible.';
+        el.title = locked ? 'Champ verrjallé : valeur synchronisée depuis le verslag d’inspection.' : 'Champ déverrjallé : modification manuelle possible.';
       });
 
       const state = document.getElementById('fotoHeaderSyncState');
       if (state) {
         state.textContent = locked
-          ? 'Champs fotos verrouillés : copie automatique depuis la première page.'
-          : 'Champs fotos déverrouillés : modification manuelle possible, avec synchronisation bidirectionnelle.';
+          ? 'Fotovelden vergrendeld : copie automatique depuis la première page.'
+          : 'Champs fotos déverrjallés : modification manuelle possible, avec synchronisation bidirectionnelle.';
       }
     }
 
@@ -2241,7 +2241,7 @@
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('service-worker.js').catch(error => {
-          console.warn('Service worker non enregistré.', error);
+          console.warn('Service worker nee enregistré.', error);
         });
       });
     }
